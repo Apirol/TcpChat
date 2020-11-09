@@ -27,6 +27,7 @@ namespace ChatClient
         { 
             try
             {
+            
                 client.Connect(host, port); 
                 stream = client.GetStream(); 
 

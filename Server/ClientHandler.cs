@@ -27,12 +27,9 @@ namespace ChatServer
             try
             {
                 Stream = client.GetStream();
-
-                server.SendMessage("Введите ваше имя", this.Id);
                 userName = GetMessage();
 
                 string message = userName + " вошел в чат";
-
                 server.SendMessage(message, this.Id);
                 Console.WriteLine(message);
 

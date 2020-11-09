@@ -51,14 +51,14 @@ namespace ChatServer
             IPHostEntry host = Dns.GetHostEntry("");
             int size = host.AddressList.Length;
 
-            Console.WriteLine("Select the interface you are going to use: \n");
+            Console.WriteLine("Select the interface you are going to use(Enter 100 to use localhost): \n");
             for (int i = 0; i < size; i++)
                 Console.WriteLine(i + ": " + host.AddressList[i]);
             try
             {
                 choice = Convert.ToInt32(Console.ReadLine());
 
-                if (choice > size || choice < size)
+                if (choice == 100)
                     ipEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2002);
                 else
                     ipEndPoint = new IPEndPoint(host.AddressList[choice], 2002);
