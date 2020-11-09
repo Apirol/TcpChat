@@ -21,12 +21,12 @@ namespace ChatServer
                 GetHost();
                 tcpListener = new TcpListener(ipEndPoint);
                 tcpListener.Start();
-                Console.WriteLine("Server started at " + ipEndPoint.Address +  " and port" + ipEndPoint.Port);
+                Console.WriteLine("Server started at " + ipEndPoint.Address +  " and port: " + ipEndPoint.Port);
 
                 while (true)
                 {
                     TcpClient tcpClient = tcpListener.AcceptTcpClient();
-                    Console.WriteLine("Сlient connected to " + IPAddress.Parse(((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()));
+                    Console.WriteLine("Сlient connected from " + IPAddress.Parse(((IPEndPoint)tcpClient.Client.RemoteEndPoint).Address.ToString()));
 
                     ClientHandler ClientHandler = new ClientHandler(tcpClient, this);
                     Thread clientThread = new Thread(new ThreadStart(ClientHandler.Process));
@@ -49,13 +49,19 @@ namespace ChatServer
             Console.WriteLine("Select the interface you are going to use: \n");
             for (int i = 0; i < size; i++)
                 Console.WriteLine(i + ": " + host.AddressList[i]);
+            try
+            {
+                choice = Convert.ToInt32(Console.ReadLine());
 
-            choice = Convert.ToInt32(Console.ReadLine());
-
-            if (choice > size || choice < size)
-                ipEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2002);
-            else
-             ipEndPoint = new IPEndPoint(host.AddressList[choice], 2002);
+                if (choice > size || choice < size)
+                    ipEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2002);
+                else
+                    ipEndPoint = new IPEndPoint(host.AddressList[choice], 2002);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("GetHost failed with message: " + e.Message);
+            }
         }
 
         protected internal void SendMessage(string message, string id)
