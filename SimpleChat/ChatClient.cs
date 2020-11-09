@@ -12,8 +12,8 @@ namespace ChatClient
         private IPAddress host;
         private const int port = 2002;
 
-        static TcpClient client;
-        static NetworkStream stream;
+        private static TcpClient client;
+        private static NetworkStream stream;
 
 
         public Client(string host, string userName)

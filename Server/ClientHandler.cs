@@ -58,6 +58,10 @@ namespace ChatServer
             {
                 Console.WriteLine("Client handler was down with error: " + e.ErrorCode + "and message: " + e.Message);
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Client handler was down with message: " + e.Message);
+            }
             finally
             {
                 server.RemoveConnection(this.Id);

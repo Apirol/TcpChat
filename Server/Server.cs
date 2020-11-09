@@ -21,7 +21,7 @@ namespace ChatServer
                 GetHost();
                 tcpListener = new TcpListener(ipEndPoint);
                 tcpListener.Start();
-                Console.WriteLine("Server started at " + ipEndPoint.Address +  " and port: " + ipEndPoint.Port);
+                Console.WriteLine("Server started at " + ipEndPoint.Address + " and port: " + ipEndPoint.Port);
 
                 while (true)
                 {
@@ -35,7 +35,12 @@ namespace ChatServer
             }
             catch (SocketException e)
             {
-                Console.WriteLine("Server was crashed with code" + e.ErrorCode + "and message" + e.Message);
+                Console.WriteLine("Server was crashed with code: " + e.ErrorCode + "and message: " + e.Message);
+                StopServer();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Server was crashed with message: " + e.Message);
                 StopServer();
             }
         }
